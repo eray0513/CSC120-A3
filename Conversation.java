@@ -54,7 +54,7 @@ class Conversation {
         // For each initial word
         for(int i = 0; i<initialWords.length; i++){
             if(separated[s].equals(initialWords[i])){ // If mirror word is found
-              separated[s] = replaceWords[i] + " ";
+              separated[s] = replaceWords[i];
               mirror = true; // Mirror words were found
               break; // Stop checking for initial words in this separated word
             }
@@ -68,10 +68,9 @@ class Conversation {
       else{
         // For every word in the separated list, add it to the response string
           for(int j = 0; j < separated.length; j++){
-          response += separated[j] + " ";
-              return response + "?";
-        
+            response += separated[j] + " ";
         }
+        return response + "?";
       }
       return response;
   }
