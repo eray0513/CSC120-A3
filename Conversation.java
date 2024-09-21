@@ -6,8 +6,8 @@ class Conversation {
   private String[] converse;
 
   // Lists of words to replace one another and canned responses
-  private String[] initialWords = {"I", "me", "am", "you", "my", "your",};
-  private String[] replaceWords = {"you", "you", "are", "I", "your", "my",};
+  private String[] initialWords = {"I", "me", "am", "you", "my", "your", "I'm"};
+  private String[] replaceWords = {"you", "you", "are", "I", "your", "my", "you're"};
   private String[] cannedWords = {"Interesting", "Mmmmhmmmm", "Wow"};
 
   /**
@@ -47,7 +47,7 @@ class Conversation {
   public String chat(String perRes){
       String [] separated = perRes.split(" ");
       String response = "";
-      boolean mirror = false;
+      boolean mirror = false; // Keeps track of whether or not mirror words were found
 
       // For each word
       for(int s = 0; s<separated.length; s++){
@@ -82,7 +82,10 @@ class Conversation {
 
     System.out.println("Hello! How many rounds would you like to have today?");
     int totalRounds = input.nextInt();
-    input.nextLine();
+    input.nextLine(); // I'm not sure if this is the kind of thing you want me to disclose
+    // but I put this section of my code through ChatGPT because it wasn't allowing the user to input
+    // another line and the response reminded me that sometimes the scanner requires a line sort of reset
+    // in order to allow it to take in the next line that the user implements
 
     Conversation current = new Conversation(totalRounds);
 
