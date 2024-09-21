@@ -1,11 +1,11 @@
 import java.util.Scanner; // Imports the scanner class
-import java.util.ArrayList; // Imports Array List class
 
 class Conversation {
   // Attributes
   private int rounds;
   private String[] converse;
 
+  // Lists of words to replace one another and canned responses
   private String[] initialWords = {"I", "me", "am", "you", "my", "your",};
   private String[] replaceWords = {"you", "you", "are", "I", "your", "my",};
   private String[] cannedWords = {"Interesting", "Mmmmhmmmm", "Wow"};
@@ -53,10 +53,9 @@ class Conversation {
       for(int s = 0; s<separated.length; s++){
         // For each initial word
         for(int i = 0; i<initialWords.length; i++){
-            if(separated[s].equals(initialWords[i])){
+            if(separated[s].equals(initialWords[i])){ // If mirror word is found
               separated[s] = replaceWords[i] + " ";
-              // Mirror words were found
-              mirror = true;
+              mirror = true; // Mirror words were found
               break; // Stop checking for initial words in this separated word
             }
         }
@@ -64,13 +63,14 @@ class Conversation {
       // If no mirror words were found
       if(!mirror){
         // Random canned response
-        response += cannedWords[(int)Math.random()*2];
+        response += cannedWords[(int)Math.random()*3];
       }
       else{
         // For every word in the separated list, add it to the response string
           for(int j = 0; j < separated.length; j++){
           response += separated[j] + " ";
               return response + "?";
+        
         }
       }
       return response;
@@ -101,7 +101,9 @@ class Conversation {
       i++;
     }
     System.out.println("Goodbye!");
-    converse[converse.length-1] = "Goodbye!";
+    current.converse[current.converse.length-1] = "Goodbye!";
+    System.out.println(" ");
+    System.out.println(" ");
     System.out.println(current.getConverse());
   }
 }
