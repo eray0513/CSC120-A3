@@ -1,4 +1,5 @@
 import java.util.Scanner; // Imports the scanner class
+import java.util.ArrayList; // Imports Array List class
 
 class Conversation {
   // Attributes
@@ -7,6 +8,7 @@ class Conversation {
 
   private String[] initialWords = {"I", "me", "am", "you", "my", "your",};
   private String[] replaceWords = {"you", "you", "are", "I", "your", "my",};
+  private String[] cannedWords = {"Interesting", "Mmmmhmmmm", "Wow"};
 
   /**
    * Constructs a conversation object with a number of rounds and an array to store the strings
@@ -30,34 +32,47 @@ class Conversation {
    * Allows the String array to be accessed from outside the class
    * @return String array of conversation
    */
-  public String[] getConverse(){
-    return this.converse;
+  public String getConverse(){
+    String convo = "";
+    for(int b = 0; b<this.converse.length; b++){
+      convo+= this.converse[b] + "\n";
+    }
+    return convo;
   }
 
   /**
    * Allows the bot to formulate a response based on the user's input
-   * @param perRes String response of person
-   * @return respone of the bot
+   * @return response of the bot
    */
   public String chat(String perRes){
       String [] separated = perRes.split(" ");
       String response = "";
+      boolean mirror = false;
+
       // For each word
-      for(int i = 0; i<separated.length; i++){
+      for(int s = 0; s<separated.length; s++){
         // For each initial word
-        boolean rep = false;
-        for(int s = 0; s<initialWords.length; s++){
-            if(separated[i].equals(initialWords[s])){
-              response += " " + replaceWords[s];
-              rep = true;
+        for(int i = 0; i<initialWords.length; i++){
+            if(separated[s].equals(initialWords[i])){
+              separated[s] = replaceWords[i] + " ";
+              // Mirror words were found
+              mirror = true;
+              break; // Stop checking for initial words in this separated word
             }
-          }
-          if(rep){
-            response += " " + separated[i];
-          }
         }
-      response += "?";
-      System.out.println(response);
+        }
+      // If no mirror words were found
+      if(!mirror){
+        // Random canned response
+        response += cannedWords[(int)Math.random()*2];
+      }
+      else{
+        // For every word in the separated list, add it to the response string
+          for(int j = 0; j < separated.length; j++){
+          response += separated[j] + " ";
+              return response + "?";
+        }
+      }
       return response;
   }
 
@@ -68,6 +83,7 @@ class Conversation {
 
     System.out.println("Hello! How many rounds would you like to have today?");
     int totalRounds = input.nextInt();
+    input.nextLine();
 
     Conversation current = new Conversation(totalRounds);
 
@@ -75,13 +91,17 @@ class Conversation {
     System.out.println(opener);
     current.converse[0] = opener;
 
-    for(int i = 1; i <=(totalRounds*2); i++){
-      String nextRes = input.next();
+    // For every response given by the bot or the person
+    for(int i = 1; i <(totalRounds*2); i++){
+      String nextRes = input.nextLine();
+      String botRes = current.chat(nextRes);
       current.converse[i] = nextRes;
-      current.converse[i+1] = current.chat(nextRes);
+      current.converse[i+1] = botRes;
+      System.out.println(botRes);
       i++;
     }
-
+    System.out.println("Goodbye!");
+    converse[converse.length-1] = "Goodbye!";
     System.out.println(current.getConverse());
   }
 }
