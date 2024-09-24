@@ -34,6 +34,7 @@ class Conversation {
    */
   public String getConverse(){
     String convo = "";
+    // For every item in the converse array
     for(int b = 0; b<this.converse.length; b++){
       convo+= this.converse[b] + "\n";
     }
@@ -63,7 +64,7 @@ class Conversation {
       // If no mirror words were found
       if(!mirror){
         // Random canned response\
-        int ranIndex = (int)(Math.random()*3);
+        int ranIndex = (int)(Math.random()*3); // Random index between 0-2
         response += cannedWords[ranIndex];
         // if no mirror words return randomly generated canned response
         return response;
