@@ -8,7 +8,7 @@ class Conversation {
   // Lists of words to replace one another and canned responses
   private String[] initialWords = {"I", "me", "am", "you", "my", "your", "I'm", "You", "Me", "My", "Your", "are"};
   private String[] replaceWords = {"you", "you", "are", "I", "your", "my", "you're", "I", "You", "Your", "My", "am"};
-  private String[] cannedWords = {"Interesting", "Mmmmhmmmm", "Wow"};
+  private static String[] cannedWords = {"Interesting", "Mmmmhmmmm", "Wow"};
 
   /**
    * Constructs a conversation object with a number of rounds and an array to store the strings
@@ -63,8 +63,10 @@ class Conversation {
       // If no mirror words were found
       if(!mirror){
         // Random canned response\
-        int ranIndex = (int)Math.random()*3;
+        int ranIndex = (int)(Math.random()*3);
         response += cannedWords[ranIndex];
+        // if no mirror words return randomly generated canned response
+        return response;
       }
       else{
         // For every word in the separated list, add it to the response string
@@ -74,8 +76,6 @@ class Conversation {
         // returns the response with a question mark
         return response + "?";
       }
-      // if no mirror words return randomly generated canned response
-      return response;
   }
 
   public static void main(String[] arguments) {
@@ -86,10 +86,7 @@ class Conversation {
     // Requests input for number of rounds
     System.out.println("Hello! How many rounds would you like to have today?");
     int totalRounds = input.nextInt();
-    input.nextLine(); // I'm not sure if this is the kind of thing you want me to disclose
-    // but I put this section of my code through ChatGPT because it wasn't allowing the user to input
-    // another line and the response reminded me that sometimes the scanner requires a line sort of reset
-    // in order to allow it to take in the next line that the user implements
+    input.nextLine(); // Partially generated with ChatGPT in order to find a solution to a bug
 
     // Create a conversation object
     Conversation current = new Conversation(totalRounds);
@@ -122,5 +119,7 @@ class Conversation {
     System.out.println(" ");
     // Print transcript
     System.out.println(current.getConverse());
+
+    input.close();
   }
 }
