@@ -43,6 +43,7 @@ class Conversation {
 
   /**
    * Allows the bot to formulate a response based on the user's input
+   * @param perRes string of person's response
    * @return response of the bot
    */
   public String chat(String perRes){
@@ -68,8 +69,7 @@ class Conversation {
         response += cannedWords[ranIndex];
         // if no mirror words return randomly generated canned response
         return response;
-      }
-      else{
+      }else{
         // For every word in the separated list, add it to the response string
           for(int j = 0; j < separated.length; j++){
             response += separated[j] + " ";
